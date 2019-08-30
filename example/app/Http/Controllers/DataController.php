@@ -53,8 +53,8 @@ class DataController extends Controller
         //return back()->withInput();*/
 
         $record = DB::table('users')->where('id', $id)->get()->first();
-
-        return view('editDB', compact('record','id'));
+        return response()->json('Edit Functionality Still Under Construction. Please Check Back Soon!');
+        //return view('editDB', compact('record','id'));
     }
     public function update(Request $request, $id) {
 
