@@ -28,22 +28,28 @@
                         <td>Password(8 Chars):</td>
                         <td><input type="text" name="password"></td>
                     </tr>
+                    <tr>
+                        <td>User Type:</td>
+                        <td><input type="text" name="user_type"></td>
+                    </tr>
                 <tr><td><input type="submit" name="submit" value="Add"></td></tr>
             </table>
         </form>
 
-
+        <p>Click To Edit</p>
             <table>
             <tr>
                 <td>Name</td>
                 <td>Email</td>
+                <td>User Type</td>
             </tr>
 
             @foreach ($users as $object)
             <tr>
-            <td> {{$object->name}} </td>
-            <td> {{$object->email}} </td>
-            <td> <a href="{{action('DataController@edit', $object->id)}}"><button>Edit</button></a>&nbsp;<a href="{{  url('delete/'.$object->id)  }}"><button>Delete</button></a> <td>
+            <td> <a href="{{  url('editName/'.$object->id)  }}"> {{$object->name}} </a></td>
+            <td> <a href="{{  url('editEmail/'.$object->id)  }}"> {{$object->email}} </a></td>
+            <td> <a href="{{  url('editUserType/'.$object->id)  }}"> {{$object->user_type}} </a></td>
+            <td> &nbsp;<a href="{{  url('delete/'.$object->id)  }}"><button>Delete</button></a> <td>
             </tr>
             @endforeach
 

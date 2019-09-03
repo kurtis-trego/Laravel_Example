@@ -22,39 +22,77 @@ class DataController extends Controller
             'name' => 'required|max:100',
             'email' => 'unique:users',
             'password' => 'required',
+            'user_type' => 'required',
         ]);
             
         $name = $req->input('name');
         $email = $req->input('email');
         $password = $req->input('password');
-            
-        $data = array('name'=>$name, "email"=>$email, "password"=>$password);
+        $user_type = $req->input('user_type');
+
+        $data = array('name'=>$name, "email"=>$email, "password"=>$password, "user_type"=>$user_type);
+
             
         DB::table('users')->insert($validatedData);
 
         return response()->json('Form is successfully validated and data has been saved');
-
-     
-
     }
-    /*
-      public static function updateData($id,$data){
-    DB::table('users')
-      ->where('id', $id)
-      ->update($data);
-  }
-*/
-    public function edit(Request $request, $id)
-    {
-      /*  DB::table('users')
-        ->where('id', $id)
-        ->update($data);
-        echo "Editing";
-        //return back()->withInput();*/
 
-        $record = DB::table('users')->where('id', $id)->get()->first();
-        return response()->json('Edit Functionality Still Under Construction. Please Check Back Soon!');
-        //return view('editDB', compact('record','id'));
+    public function showData($id) 
+    {
+        $user = DB::table('users')->where('id', $id)->get();
+        return view('editDB')->withUser($user);
+    }
+
+    public function editEmail($id) 
+    {
+       /* DB::table('users')
+            ->where('id', $id)
+            ->update(['email' => 'newnew@email.co']);
+        */
+            return view('editEmail')->withId($id);
+    }
+
+    
+    public function userProvidedEmail($id) 
+    {
+        DB::table('users')
+          ->where('id', $id)
+          ->update(['email' => 'testnew@email.com']);
+           
+          return response()->json('Email Edited');
+    }
+    
+
+
+
+
+
+
+    
+      public function updateData($id){
+      /*  DB::table('users')
+            ->where('id', $id)
+            ->update(['email' => 'teeeee@j333.com']); */
+            return view('editDB')->withId($id);
+            //return response()->json('something');
+  }
+
+    public function edit($id)
+    {
+        DB::table('users')
+            ->where('id', $id)
+            ->update(['email' => 'tee@hee.co']);
+        
+  /* Working Delete Code:      
+        DB::table('users')
+        ->where('id', $id)
+        ->delete();
+  */
+
+
+         return response()->json('Edit Functionality Still Under Construction. Please Check Back Soon!'.$id);
+       // return view('editDB', compact('record','id'));
     }
     public function update(Request $request, $id) {
 
@@ -68,18 +106,7 @@ class DataController extends Controller
         $record->name = $request->get('name');
         $record->save();
 
-        return "Finished";
-        /*
-                $student = Student::find($id);
-        $student->first_name = $request->get('first_name');
-        $student->last_name = $request->get('last_name');
-        $student->save();
-        return redirect()->route('student.index')->with('success', 'Data Updated'
-        */
-
-        
-
-
+        return response()->json('Finished');
     }
 
     public function delete($id)

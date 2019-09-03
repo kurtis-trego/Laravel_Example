@@ -22,11 +22,20 @@ Route::get('/', 'PagesController@index');
 Route::get('index', 'PagesController@index');
 Route::get('about' , 'PagesController@about');
 
+//Example Passing Into
+//Route::get('attendance/{id}', ['as' => 'user.attendance', 'uses' => 'UserController@attendance']);
+
+
 Route::get('data', 'DataController@getData');
 Route::post('insert', 'DataController@insert');
 Route::get('edit/{id}', 'DataController@edit');
 Route::get('delete/{id}', 'DataController@delete');
 
+Route::get('updateData/{id}', 'DataController@showData');
+Route::get('editDB', 'DataController@updateData');
+
+Route::get('editEmail/{id}', 'DataController@editEmail');
+Route::post('editEmail/{id}', 'DataController@userProvidedEmail')->name('editEmail.update');
 
 Route::get('test', 'TestController@create')->name('test.create');
 Route::post('test', 'TestController@store')->name('test.store');
